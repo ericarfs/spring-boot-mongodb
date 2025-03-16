@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ericarfs.spring_boot_mongodb.dto.UserDTO;
+import com.ericarfs.spring_boot_mongodb.entity.Post;
 import com.ericarfs.spring_boot_mongodb.entity.User;
 import com.ericarfs.spring_boot_mongodb.service.UserService;
 
@@ -63,6 +64,12 @@ public class UserController {
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+		User user = service.findById(id);		
+		return ResponseEntity.ok().body(user.getPosts());
 	}
 	
 }
