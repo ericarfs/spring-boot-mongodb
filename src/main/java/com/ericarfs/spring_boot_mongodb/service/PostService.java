@@ -1,5 +1,6 @@
 package com.ericarfs.spring_boot_mongodb.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,14 @@ public class PostService {
 		else
 			throw new ResourceNotFoundException("Post with id "+id+" not found.");
 			
+	}
+	
+	public List<Post> findByTitle(String text){
+		return repository.findByTitleContainingIgnoreCase(text);
+	}
+	
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate){
+		maxDate = new Date(maxDate.getTime() + 86400000);
+		return repository.fullSearch(text, minDate, maxDate);
 	}
 }
