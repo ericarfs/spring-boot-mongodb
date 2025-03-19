@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.ericarfs.spring_boot_mongodb.dto.AuthorDTO;
 import com.ericarfs.spring_boot_mongodb.dto.CommentDTO;
+import com.ericarfs.spring_boot_mongodb.entity.Email;
 import com.ericarfs.spring_boot_mongodb.entity.Post;
 import com.ericarfs.spring_boot_mongodb.entity.User;
 import com.ericarfs.spring_boot_mongodb.repository.PostRepository;
@@ -33,9 +34,9 @@ public class Instantiation implements CommandLineRunner{
 		userRepository.deleteAll();
 		postRepository.deleteAll();
 		
-		User maria = new User(null, "Maria Brown", "maria@gmail.com");
-		User alex = new User(null, "Alex Green", "alex@gmail.com");
-		User bob = new User(null, "Bob Grey", "bob@gmail.com");
+		User maria = new User(null, "Maria Brown", new Email("maria@gmail.com"));
+		User alex = new User(null, "Alex Green", new Email("alex@gmail.com"));
+		User bob = new User(null, "Bob Grey", new Email("bob@gmail.com"));
 		
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 		

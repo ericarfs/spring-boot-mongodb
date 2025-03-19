@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ericarfs.spring_boot_mongodb.dto.UserDTO;
+import com.ericarfs.spring_boot_mongodb.entity.Email;
 import com.ericarfs.spring_boot_mongodb.entity.User;
 import com.ericarfs.spring_boot_mongodb.exceptions.ResourceNotFoundException;
 import com.ericarfs.spring_boot_mongodb.repository.UserRepository;
@@ -30,7 +31,7 @@ public class UserService {
 	}
 	
 	public User fromDTO(UserDTO objDto) {
-		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+		return new User(objDto.getId(), objDto.getName(), new Email(objDto.getEmail()));
 	}
 	
 	public void delete(String id) {
@@ -49,7 +50,7 @@ public class UserService {
 
 	private void updateData(User newObj, User obj) {
 		newObj.setName(obj.getName());
-		newObj.setEmail(obj.getEmail());
+		newObj.setEmail(new Email(obj.getEmail()));
 	}
 
 }

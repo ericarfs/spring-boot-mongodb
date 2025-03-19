@@ -1,6 +1,7 @@
 package com.ericarfs.spring_boot_mongodb.entity;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,19 +17,22 @@ public class User implements Serializable{
 	@Id
 	private String id;
 	private String name;
-	private String email;
+	private Email email;
+	
 	
 	@DBRef(lazy = true)
 	private List<Post> posts = new ArrayList<>();
 	
 	public User() {
+		
 	}
 
-	public User(String id, String name, String email) {
+	public User(String id, String name, Email email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		
 	}
 
 	public String getId() {
@@ -48,10 +52,10 @@ public class User implements Serializable{
 	}
 
 	public String getEmail() {
-		return email;
+		return email.getEmail();
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(Email email) {
 		this.email = email;
 	}
 
@@ -78,6 +82,10 @@ public class User implements Serializable{
 			return false;
 		User other = (User) obj;
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id);
+	}
+
+	public Instant getCreatedAt() {
+		return createdAt;
 	}
 	
 	
