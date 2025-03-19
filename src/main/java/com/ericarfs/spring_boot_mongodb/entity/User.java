@@ -17,14 +17,15 @@ public class User implements Serializable{
 	@Id
 	private String id;
 	private String name;
+	private String username;
 	private Email email;
-	
+	private final Instant createdAt = Instant.now();
+	private Instant updatedAt;
 	
 	@DBRef(lazy = true)
 	private List<Post> posts = new ArrayList<>();
 	
 	public User() {
-		
 	}
 
 	public User(String id, String name, Email email) {
@@ -32,7 +33,6 @@ public class User implements Serializable{
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		
 	}
 
 	public String getId() {
@@ -67,6 +67,19 @@ public class User implements Serializable{
 		this.posts = posts;
 	}
 
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public Instant getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Instant updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(email, id);
@@ -84,10 +97,12 @@ public class User implements Serializable{
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id);
 	}
 
-	public Instant getCreatedAt() {
-		return createdAt;
+	public String getUsername() {
+		return username;
 	}
-	
-	
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 }
